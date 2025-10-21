@@ -6,15 +6,32 @@ pipeline {
 
     }
  environment {
-       
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
         AWS_DEFAULT_REGION    = 'ap-south-1'
     }
-   stages {
+  stages {
      stage('checkout')
        steps {
           git branch : 'main' , url: 'https://github.com/Dhivya-ghub/terraform-demo-script.git'
        }
-     stage('Terraform init')
-     
+     stage('Terraform init') {
+      steps {
+        sh 'terraform init'
+      }
+     }  
+     stage('plan') {
+      steps {
+        sh 'terraform plan -out tfplan'
+        sh 'terrafrm show -no-color tfplan >tfplan.txt'
+       }
+     } 
+      stage('Apply / Destroy') {
+            steps {
+             sh 'terraform apply'
+                  }
+                }
+              
+
+    }
+}     
