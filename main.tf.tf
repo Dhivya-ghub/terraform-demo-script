@@ -1,5 +1,5 @@
-resource "aws_security_group" "allow_http" {
-  name        = "allow_http"
+moresource "aws_security_group" "allow_http" {
+  name        = "allow_http1"
   description = "Allow HTTP inbound traffic"
   vpc_id      = var.vpc_id
 
@@ -19,7 +19,7 @@ resource "aws_security_group" "allow_http" {
 }
 
 resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
+  name        = "allow_ssh1"
   description = "Allow SSH inbound traffic"
   vpc_id      = var.vpc_id
 
@@ -39,7 +39,7 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 resource "aws_security_group" "allow_jenkins" {
-  name        = "allow_jenkins"
+  name        = "allow_jenkins1"
   description = "Allow Jenkins inbound traffic"
   vpc_id      = var.vpc_id
 
