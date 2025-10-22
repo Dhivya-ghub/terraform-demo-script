@@ -12,7 +12,7 @@ variable "vpc_id" {
 variable "subnet_id" {
   description = "The subnet where the Jenkins EC2 instance will be launched"
   type        = string
-  default     = "subnet-079ca8e9d55a2e037"
+  default     = "subnet-04212bed4885bce94"
 }
 
 
