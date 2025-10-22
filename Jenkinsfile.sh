@@ -18,34 +18,36 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Dhivya-ghub/terraform-demo-script.git'
             }
         }
-
-        stage('Terraform Init') {
+        stage('Terraform init') {
             steps {
                 sh 'terraform init'
             }
         }
-
-        stage('Terraform Plan') {
+        stage('Plan') {
             steps {
-                sh 'terraform plan -out=tfplan'
+                sh 'terraform plan -out tfplan'
                 sh 'terraform show -no-color tfplan > tfplan.txt'
             }
         }
-
-        stage('Apply or Destroy') {
+        stage('Apply / Destroy') {
             steps {
                 script {
                     if (params.action == 'apply') {
-                        if (params.autoApprove) {
-                            sh 'terraform apply -auto-approve tfplan'
-                        } else {
-                            sh 'terraform apply tfplan'
+                        if (!params.autoApprove) {
+                            def plan = readFile 'tfplan.txt'
+                            input message: "Do you want to apply the plan?",
+                            parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                         }
+
+                        sh 'terraform ${action} -input=false tfplan'
                     } else if (params.action == 'destroy') {
-                        sh 'terraform destroy -auto-approve'
+                        sh 'terraform ${action} --auto-approve'
+                    } else {
+                        error "Invalid action selected. Please choose either 'apply' or 'destroy'."
                     }
                 }
             }
         }
+
     }
 }
