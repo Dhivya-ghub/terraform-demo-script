@@ -1,4 +1,4 @@
-moresource "aws_security_group" "allow_http" {
+resource "aws_security_group" "allow_http" {
   name        = "allow_http1"
   description = "Allow HTTP inbound traffic"
   vpc_id      = var.vpc_id
