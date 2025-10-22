@@ -14,5 +14,9 @@ variable "subnet_id" {
   type        = string
   default     = "subnet-04212bed4885bce94"
 }
+variable "private_key_path" {
+  description = "Path to the SSH private key file for EC2 access"
+  type        = string
+}
 
 
