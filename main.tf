@@ -93,7 +93,7 @@ resource "aws_instance" "jenkins_master" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = file(example_key_pair.pem)   # <-- reference variable here
+      private_key = file("example_key_pair.pem")
     }
   }
 }
